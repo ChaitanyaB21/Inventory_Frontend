@@ -17,7 +17,7 @@ const Trash = (props) => {
 
     return (
         <button onClick={handleClick} id={props.id}  className="cbbtn">
-            <i className="fa fa-trash" aria-hidden="true"></i>
+            Del
         </button>
     )
 }
