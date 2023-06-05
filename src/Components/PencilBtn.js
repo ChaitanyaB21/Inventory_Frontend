@@ -42,7 +42,7 @@ const PencilBtn = (props) => {
         <React.Fragment>
             {!showForm ? (
                 <button onClick={handleClick} id={props.id} type="button" className="cbbtn">
-                    <i className="fa fa-pencil" aria-hidden="true"></i>
+                    <i className="fa fa-pencil" ></i>
                 </button>
             ) : (
                 <form onSubmit={handleChangeformSubmit} >
