@@ -23,7 +23,7 @@ const PencilBtn = (props) => {
             stock: event.target.changedStock.value,
         }
 
-        const response = await fetch(`http://localhost:4000/update/${pencilBtnId}`, {
+        const response = await fetch(`https://inventorybackend-production.up.railway.app/update/${pencilBtnId}`, {
             method: 'POST',
             body: JSON.stringify(changeformData),
             headers: {

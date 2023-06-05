@@ -6,7 +6,7 @@ const Trash = (props) => {
         
         const clickedBtnId = event.currentTarget.id;
         console.log(clickedBtnId);
-        const response = await fetch(`http://localhost:4000/delete/${clickedBtnId}` , {
+        const response = await fetch(`https://inventorybackend-production.up.railway.app/delete/${clickedBtnId}` , {
             method: 'DELETE'
         });
 

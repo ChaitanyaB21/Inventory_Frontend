@@ -6,7 +6,7 @@ const Content = (props) => {
     const [itemsArr, setInitItemsArr] = useState([]);
 
     const DBdata = async () => {
-        const response = await fetch("http://localhost:4000/form", {
+        const response = await fetch("https://inventorybackend-production.up.railway.app/form", {
             method: 'GET',
         });
 
