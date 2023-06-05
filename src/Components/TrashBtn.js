@@ -10,6 +10,9 @@ const Trash = (props) => {
             method: 'DELETE'
         });
 
+        if(response.ok){
+            console.log();
+        }
     }
 
     return (
