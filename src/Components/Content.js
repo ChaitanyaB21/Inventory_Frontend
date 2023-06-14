@@ -29,8 +29,14 @@ const Content = (props) => {
                     </button>
                 </div>
             </div>
-            <div className="page-title">Inventory</div>
-            <div className="page-desc">View and manage your stock</div>
+            
+            <div className="header" >
+                <div>
+                    <div className="page-title">Inventory</div>
+                    <div className="page-desc">View and manage your stock</div>
+                </div>
+                <button onClick={props.onShowNav} className="inventory-button"><i className="bi bi-plus-circle"></i> Add Item</button>
+            </div>
             {itemsArr.map((item) => (
                 <div className="content-bar" key={item._id}>
                     <div className="itemnum">{item.itemid}</div>
@@ -40,14 +46,8 @@ const Content = (props) => {
                     </div>
                     <div className="itemstock">{item.stock}</div>
                     <div className="btncontainer">
-                        {/* <form method="post" action="/update-item">
-              <input type="hidden" name="itemId" value={item.ItemId} />
-              <input type="text" name="itemName" placeholder="New Item Name" />
-              <input type="text" name="itemPrice" placeholder="New Item Price" />
-              <input type="text" name="itemStock" placeholder="New Item Stock" />
-            </form> */}
                         <PencilBtn id={item._id} />
-                        <TrashBtn id={item._id} />
+                        <TrashBtn onDelBtnClick={props.onDelBtnClick} id={item._id} />
                     </div>
                 </div>
             ))}

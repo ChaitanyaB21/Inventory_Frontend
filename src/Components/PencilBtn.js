@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import DeletePopUp from "./Modal";
+
 
 const PencilBtn = (props) => {
     const [showForm, setShowForm] = useState(false);
@@ -14,6 +16,9 @@ const PencilBtn = (props) => {
     }
 
     const handleChangeformSubmit = async (event) => {
+
+        setShowForm(false);
+
         event.preventDefault();
         console.log(event.target.changedPrice.value);
         const changeformData = {
@@ -32,27 +37,34 @@ const PencilBtn = (props) => {
 
         });
 
-        if(response.ok){
+        if (response.ok) {
             console.log();
         }
-        
+
+
+
     }
 
     return (
         <React.Fragment>
             {!showForm ? (
                 <button onClick={handleClick} id={props.id} type="button" className="cbbtn">
-                    <i className="fa fa-pencil" aria-hidden="true"></i>
+                    <i className="bi bi-pencil-fill"></i>
                 </button>
             ) : (
-                <form onSubmit={handleChangeformSubmit} >
-                    <input name="changedId"  type="text" placeholder="changed Id" ></input>
-                    <input name="changedName" type="text" placeholder="changed Name" ></input>
-                    <input name="changedPrice" type="number" placeholder="changed Price" ></input>
-                    <input name="changedStock" type="number" placeholder="changed Stock" ></input>
-                    <button type="submit" name="submit" >Change</button>
-                    <button onClick={handleCancelClick} >Close</button>
-                </form>
+
+                <DeletePopUp onCrossBtnClick={handleCancelClick} >
+                    <form onSubmit={handleChangeformSubmit} >
+                        <h1>Changes List</h1>
+                        <p>Enter changes that you want to make</p>
+                        <input name="changedId" type="text" placeholder="changed Id" ></input>
+                        <input name="changedName" type="text" placeholder="changed Name" ></input>
+                        <input name="changedPrice" type="number" placeholder="changed Price" ></input>
+                        <input name="changedStock" type="number" placeholder="changed Stock" ></input>
+                        <button type="submit" name="submit" >Change</button>
+                        {/* <button onClick={handleCancelClick} >Close</button> */}
+                    </form>
+                </DeletePopUp>
             )}
         </React.Fragment>
     );

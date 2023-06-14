@@ -3,10 +3,24 @@ import Input from "./Input";
 import Content from "./Content";
 
 const SideNav = (props) => {
-    const [initItemsArr, setInitItemsArr] = useState([
+    const [initItemsArr, setInitItemsArr] = useState([]);
+    const [showSideNav, setShowSideNav] = useState(false);
+    const [showBackDrop , setShowBackDrop] = useState(false);
 
-    ]);
+    const onShowNavBtnClick = () => {
+        setShowSideNav(true);
+        setShowBackDrop(true);
+    }
 
+    const handleAddBtnClick = () => {
+        setShowSideNav(false);
+        setShowBackDrop(false);
+    }
+
+    const handleBackdropClick = () => {
+        setShowSideNav(false);
+        setShowBackDrop(false);
+    }
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -21,47 +35,58 @@ const SideNav = (props) => {
             ItemName: ItemNameValue,
             ItemPrice: ItemPriceValue,
             ItemStock: ItemStockValue,
-        }
+        };
 
-        if (ItemIdValue.trim().length > 0 && ItemNameValue.trim().length > 0 && ItemPriceValue.trim().length > 0 && ItemStockValue.trim().length > 0) {
-            setInitItemsArr((prev) => [
-                ...prev,
-                formData
-            ]);
+        if (
+            ItemIdValue.trim().length > 0 &&
+            ItemNameValue.trim().length > 0 &&
+            ItemPriceValue.trim().length > 0 &&
+            ItemStockValue.trim().length > 0
+        ) {
+            // event.target.reset();
+            setInitItemsArr((prev) => [...prev, formData]);
 
-            const response = await fetch("https://inventorybackend-production.up.railway.app/form", {
-                method: 'POST',
-                body: JSON.stringify(formData),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+            const response = await fetch(
+                "https://inventorybackend-production.up.railway.app/form",
+                {
+                    method: "POST",
+                    body: JSON.stringify(formData),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
 
-            });
-            // const data = await response.json();
-
-            if(response.ok){
+            if (response.ok) {
                 console.log();
             }
-        }
 
+            // Reset the form
+
+        }
     };
 
     return (
         <React.Fragment>
-            <div className="sidenav">
-                <div className="logo">Solar <span>Ladder.</span></div>
+            
+            <div className={`sidenav ${showSideNav ? "show" : ""}`}>
+                <div className="logo">
+                    Solar <span>Ladder.</span>
+                </div>
+                {/* <p>Add a new item to inventory</p> */}
                 <form onSubmit={handleFormSubmit} action="/" method="post">
                     <Input />
 
                     <div className="spacer"></div>
-                    <button type="submit" name="submit" className="mbtn">
-                        <i className="fa fa-list icon" aria-hidden="true"></i> Add Item
+                    <button type="submit" onClick={handleAddBtnClick} name="submit" className="mbtn">
+                        <i className="bi bi-list-columns-reverse"></i> Add
                     </button>
-                    {/* <button className="mbtn"><i className="fa fa-shopping-cart icon" aria-hidden="true"></i> Option Two</button>
-          <button className="mbtn"><i className="fa fa-user icon" aria-hidden="true"></i> Option Three</button> */}
                 </form>
             </div>
-            <Content itemsArr={initItemsArr} />
+            {/* <div className={`${showSideNav ? "sideNavModal" : "" }`} ></div> */}
+            <div onClick={handleBackdropClick} className={` backdrop ${showBackDrop ? "show" : ""}`}></div>
+            <Content onShowNav={onShowNavBtnClick} onDelBtnClick={props.onDelBtnClick} itemsArr={initItemsArr} />
+
         </React.Fragment>
     );
 };
